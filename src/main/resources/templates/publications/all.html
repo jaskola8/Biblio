@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Publication List</title>
+
+    <link rel="stylesheet" th:href="@{webjars/bootstrap/4.2.1/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+
+</head>
+<body>
+
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+    <a class="navbar-brand" href="/logout">Logout</a>
+</nav>
+
+<main role="main" class="container">
+    <!--/*@thymesVar id="publications" type="com.example.booker.model.entity.PublicationEntity"*/-->
+    <div th:switch="${publications}">
+        <h2 th:case="null">No publications yet!</h2>
+        <div th:case="*">
+            <h2>Publications</h2>
+            <table>
+                <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="publication : ${publications}">
+                    <td th:text="${publication.getTitle()}"></td>
+                    <td><a th:href="@{/pub/edit/{id}(id=${publication.getId()})}">Edit</a></td>
+                    <td><a th:href="@{/pub/delete/{id}(id=${publication.getId()})}">Delete</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <p><a href="/pub/create">Create new publication</a></p>
+    </div>
+</main>
+<!-- /.container -->
+<script type="text/javascript" th:src="@{webjars/bootstrap/4.2.1/js/bootstrap.min.js}"></script>
+</body>
+</html>
